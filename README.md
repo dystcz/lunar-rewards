@@ -27,8 +27,6 @@ composer require dystcz/lunar-rewards
 
 Publish config files
 
-> You will probably need them pretty bad
-
 ```bash
 php artisan vendor:publish --provider="Dystcz\LunarRewards\LunarRewardsServiceProvider" --tag="lunar-rewards"
 ```

@@ -77,6 +77,10 @@ class LunarRewardsServiceProvider extends ServiceProvider
                 "{$this->root}/config/{$configFile}.php" => config_path("lunar-rewards/{$configFile}.php"),
             ], 'lunar-rewards');
         }
+
+        $this->publishes([
+            "{$this->root}/config/wallet.php" => config_path('wallet.php'),
+        ], 'wallet');
     }
 
     /**
@@ -100,6 +104,11 @@ class LunarRewardsServiceProvider extends ServiceProvider
                 "lunar-rewards.{$configFile}",
             );
         }
+
+        $this->mergeConfigFrom(
+            "{$this->root}/config/wallet.php",
+            'wallet',
+        );
     }
 
     /**

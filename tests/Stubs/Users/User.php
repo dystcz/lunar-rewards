@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lunar\Base\Traits\LunarUser;
+use O21\LaravelWallet\Contracts\Payable;
+use O21\LaravelWallet\Models\Concerns\HasBalance;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Payable
 {
+    use HasBalance;
     use HasFactory;
     use LunarUser;
     use Notifiable;

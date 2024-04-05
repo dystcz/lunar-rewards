@@ -23,6 +23,7 @@
   ],
   "require": {
     "php": "^8.2",
+    "021/laravel-wallet": "^8.2",
     "illuminate/support": "^10.0",
     "lunarphp/lunar": "^0.8"
   },
