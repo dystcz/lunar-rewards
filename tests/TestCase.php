@@ -11,7 +11,6 @@ use Dystcz\LunarRewards\Tests\Traits\CreatesTestingModels;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
@@ -35,9 +34,7 @@ abstract class TestCase extends Orchestra
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
         Config::set('lunar.taxes.driver', 'test');
 
-        Taxes::extend('test', function ($app) {
-            return $app->make(TestTaxDriver::class);
-        });
+        Taxes::extend('test', fn (Application $app) => $app->make(TestTaxDriver::class));
 
         activity()->disableLogging();
     }
@@ -77,6 +74,9 @@ abstract class TestCase extends Orchestra
 
             // Lunar Hub
             \Lunar\Hub\AdminHubServiceProvider::class,
+
+            // Laravel Wallet
+            \O21\LaravelWallet\ServiceProvider::class,
 
             // Lunar Rewards
             \Dystcz\LunarRewards\LunarRewardsServiceProvider::class,
@@ -129,17 +129,6 @@ abstract class TestCase extends Orchestra
     protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
-
-        // NOTE MySQL migrations do not play nice with Lunar testing for some reason
-        // // artisan($this, 'lunar:install');
-        // // artisan($this, 'vendor:publish', ['--tag' => 'lunar']);
-        // // artisan($this, 'vendor:publish', ['--tag' => 'lunar.migrations']);
-        //
-        // // artisan($this, 'migrate', ['--database' => 'mysql']);
-        //
-        // $this->beforeApplicationDestroyed(
-        //     fn () => artisan($this, 'migrate:rollback', ['--database' => 'mysql'])
-        // );
     }
 
     /**
