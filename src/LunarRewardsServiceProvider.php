@@ -75,12 +75,12 @@ class LunarRewardsServiceProvider extends ServiceProvider
         foreach ($this->configFiles as $configFile) {
             $this->publishes([
                 "{$this->root}/config/{$configFile}.php" => config_path("lunar-rewards/{$configFile}.php"),
-            ], 'lunar-rewards');
+            ], 'lunar-rewards.config');
         }
 
         $this->publishes([
             "{$this->root}/config/wallet.php" => config_path('wallet.php'),
-        ], 'wallet');
+        ], 'lunar-rewards.config');
     }
 
     /**
