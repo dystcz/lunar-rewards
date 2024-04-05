@@ -3,8 +3,11 @@
 namespace Dystcz\LunarRewards\Tests;
 
 use Dystcz\LunarApi\Base\Facades\SchemaManifestFacade;
-use Dystcz\LunarApi\Tests\Stubs\Lunar\TestUrlGenerator;
-use Dystcz\LunarApi\Tests\Stubs\Users\JsonApi\V1\UserSchema;
+use Dystcz\LunarRewards\Tests\Stubs\Lunar\TestTaxDriver;
+use Dystcz\LunarRewards\Tests\Stubs\Lunar\TestUrlGenerator;
+use Dystcz\LunarRewards\Tests\Stubs\Users\User;
+use Dystcz\LunarRewards\Tests\Stubs\Users\UserSchema;
+use Dystcz\LunarRewards\Tests\Traits\CreatesTestingModels;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -12,10 +15,12 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use LaravelJsonApi\Testing\TestExceptionHandler;
+use Lunar\Facades\Taxes;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    use CreatesTestingModels;
     use MakesJsonApiRequests;
 
     protected function setUp(): void
@@ -28,6 +33,11 @@ abstract class TestCase extends Orchestra
         ]);
 
         Config::set('lunar.urls.generator', TestUrlGenerator::class);
+        Config::set('lunar.taxes.driver', 'test');
+
+        Taxes::extend('test', function ($app) {
+            return $app->make(TestTaxDriver::class);
+        });
 
         activity()->disableLogging();
     }
