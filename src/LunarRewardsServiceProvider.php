@@ -36,6 +36,14 @@ class LunarRewardsServiceProvider extends ServiceProvider
             'lunar-rewards',
             fn () => new LunarRewards,
         );
+
+        $this->app->singleton(
+            \Dystcz\LunarRewards\Domain\Rewards\Contracts\RewardPointsCalculator::class,
+            fn () => new (Config::get(
+                'lunar-rewards.reward_point_calculator',
+                \Dystcz\LunarRewards\Domain\Rewards\Calculators\RewardPointsCalculator::class,
+            )),
+        );
     }
 
     /**

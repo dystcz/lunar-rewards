@@ -9,7 +9,7 @@ return [
     | Specify which class to use for calculating reward points.
     |
     */
-    'reward_point_calculator' => \Dystcz\LunarRewards\Domain\Rewards\Actions\RewardPointsCalculator::class,
+    'reward_point_calculator' => \Dystcz\LunarRewards\Domain\Rewards\Calculators\RewardPointsCalculator::class,
 
     /*
     |--------------------------------------------------------------------------
