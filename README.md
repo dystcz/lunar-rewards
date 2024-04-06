@@ -137,39 +137,36 @@ LunarRewards::transfer(from: $model, to: $model2, points: new Reward(1000));
 
 ```php
 use Dystcz\LunarRewards\Domain\Rewards\Managers\PointBalanceManager;
-use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
 use Dystcz\LunarRewards\Facades\LunarRewards;
 
 $balance = PointBalanceManager::of($model);
 
 // Points Balance
 $balance->getValue(); // int
-$balance->getReward(); // Reward
+$balance->getReward(); // Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward
 
 // Get balance by calling the facade
 LunarRewards::balance($model); // int
 
 // All Sent Points
 $balance->getSent(); // int
-$balance->getSentReward(); // Reward
+$balance->getSentReward(); // Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward
 
 // All Received Points
 $balance->getReceived(); // int
-$balance->getReceivedReward(); // Reward
+$balance->getReceivedReward(); // Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward
 ```
 
 #### Getting model points transactions
 
 ```php
 use Dystcz\LunarRewards\Domain\Rewards\Managers\PointBalanceManager;
-use O21\LaravelWallet\Models\Transaction;
-use Illuminate\Database\Eloquent\Builder;
 
 $balance = PointBalanceManager::of($model);
 
 // All Received Points
-$balance->getTransactions(); // Collection<Transaction>
-$balance->getTransactionsQuery(); // Builder
+$balance->getTransactions(); // Illuminate\Support\Collection<O21\LaravelWallet\Models\Transaction>
+$balance->getTransactionsQuery(); // Illuminate\Database\Eloquent\Builder
 
 // Or simply by calling the facade
 ```
@@ -190,11 +187,19 @@ $balance->hasEnoughPoints(new Reward(1000)); // bool
 
 ```php
 use Dystcz\LunarRewards\Domain\Rewards\Actions\CreateCouponFromBalance;
-use Lunar\Models\Currency;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
 
-$currency = $order->currency; // Currency
+$currency = $order->currency; // Lunar\Models\Currency
 
-$coupon = App::make(CreateCouponFromBalance::class)->handle($model, $currency);
+// Create a coupon with the value from the whole balance
+$coupon = App::make(CreateCouponFromBalance::class)->handle(model: $model, currency: $currency);
+
+// Create a coupon only for provided points
+$coupon = App::make(CreateCouponFromBalance::class)->handle(
+    model: $model,
+    currency: $currency,
+    points: new Reward(1000)
+);
 ```
 
 ### Lunar API endpoints
