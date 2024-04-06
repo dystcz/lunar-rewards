@@ -26,6 +26,8 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
+        $this->setUpDatabase();
+
         Config::set('auth.providers.users', [
             'driver' => 'eloquent',
             'model' => User::class,
@@ -108,6 +110,16 @@ abstract class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
+        /**
+         * Wallet configuration.
+         */
+        Config::set('wallet.default_currency', 'RP');
+        Config::set('wallet.table_names', [
+            'balances' => 'lunar_rewards_balances',
+            'balance_states' => 'lunar_rewards_balance_states',
+            'transactions' => 'lunar_rewards_transactions',
+        ]);
+
         Config::set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => 'mysql',
@@ -129,6 +141,24 @@ abstract class TestCase extends Orchestra
     protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
+    }
+
+    /**
+     * Set up the database.
+     */
+    protected function setUpDatabase(): void
+    {
+        $walletMigrations = [
+            'database/migrations/create_balances_table.php.stub',
+            'database/migrations/create_transactions_table.php.stub',
+            'database/migrations/create_balance_states_table.php.stub',
+        ];
+
+        foreach ($walletMigrations as $migration) {
+            $migration = include __DIR__."/../vendor/021/laravel-wallet/{$migration}";
+
+            $migration->up();
+        }
     }
 
     /**
