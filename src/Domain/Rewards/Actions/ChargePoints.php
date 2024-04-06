@@ -11,11 +11,11 @@ class ChargePoints extends PointsAction
     /**
      * Charge points from the model.
      */
-    public function handle(Rewardable $from, Reward $amount): Transaction
+    public function handle(Rewardable $from, Reward $points): Transaction
     {
         $transaction = $this->transactionCreator
-            ->amount($amount->value)
-            ->currency($amount->currency->code)
+            ->amount($points->value)
+            ->currency($points->currency->code)
             ->processor('charge')
             ->from($from)
             ->commit();

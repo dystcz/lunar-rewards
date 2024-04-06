@@ -11,11 +11,11 @@ class TransferPoints extends PointsAction
     /**
      * Tranfer points between two rewardable models.
      */
-    public function handle(Rewardable $from, Rewardable $to, Reward $amount): Transaction
+    public function handle(Rewardable $from, Rewardable $to, Reward $points): Transaction
     {
         $transaction = $this->transactionCreator
-            ->amount($amount->value)
-            ->currency($amount->currency->code)
+            ->amount($points->value)
+            ->currency($points->currency->code)
             ->processor('transfer')
             ->from($from)
             ->to($to)

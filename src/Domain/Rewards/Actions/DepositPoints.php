@@ -11,11 +11,11 @@ class DepositPoints extends PointsAction
     /**
      * Deposit points to the given rewardable model.
      */
-    public function handle(Rewardable $to, Reward $amount): Transaction
+    public function handle(Rewardable $to, Reward $points): Transaction
     {
         $transaction = $this->transactionCreator
-            ->amount($amount->value)
-            ->currency($amount->currency->code)
+            ->amount($points->value)
+            ->currency($points->currency->code)
             ->processor('deposit')
             ->to($to)
             ->overcharge()

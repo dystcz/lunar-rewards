@@ -27,11 +27,11 @@ class CreateCouponFromBalance extends PointsAction
     /**
      * Create coupon from reward points.
      */
-    public function handle(Rewardable $model, Currency $currency, ?Reward $reward = null): Discount
+    public function handle(Rewardable $model, Currency $currency, ?Reward $points = null): Discount
     {
-        $reward = $reward ?? LunarRewards::balanceManager($model)->getReward();
+        $points = $points ?? LunarRewards::balanceManager($model)->getReward();
 
-        $price = $this->calculateCouponValue($reward, $currency);
+        $price = $this->calculateCouponValue($points, $currency);
 
         $coupon = $this->createCoupon($model, $price);
 
@@ -41,9 +41,9 @@ class CreateCouponFromBalance extends PointsAction
     /**
      * Calculate coupon value.
      */
-    protected function calculateCouponValue(Reward $reward, Currency $currency): Price
+    protected function calculateCouponValue(Reward $points, Currency $currency): Price
     {
-        return RewardValueCalculator::for($reward, $currency)
+        return RewardValueCalculator::for($points, $currency)
             ->calculate();
     }
 

@@ -27,22 +27,22 @@ it('can get correct balances for a model', function () {
     $this->assertEquals(0, $balance->getValue());
     $this->assertEquals(0, $balance2->getValue());
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(1000));
+    (new DepositPoints)->handle(to: $user, points: new Reward(1000));
     $this->assertEquals(1000, $balance->getValue());
     $this->assertEquals(1000, $balance->getReceivedValue());
     $this->assertEquals(0, $balance->getSentValue());
 
-    (new ChargePoints)->handle(from: $user, amount: new Reward(500));
+    (new ChargePoints)->handle(from: $user, points: new Reward(500));
     $this->assertEquals(500, $balance->getValue());
     $this->assertEquals(1000, $balance->getReceivedValue());
     $this->assertEquals(500, $balance->getSentValue());
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(200));
+    (new DepositPoints)->handle(to: $user, points: new Reward(200));
     $this->assertEquals(700, $balance->getValue());
     $this->assertEquals(1200, $balance->getReceivedValue());
     $this->assertEquals(500, $balance->getSentValue());
 
-    (new TransferPoints)->handle(from: $user, to: $user2, amount: new Reward(450));
+    (new TransferPoints)->handle(from: $user, to: $user2, points: new Reward(450));
     $this->assertEquals(250, $balance->getValue());
     $this->assertEquals(1200, $balance->getReceivedValue());
     $this->assertEquals(950, $balance->getSentValue());
@@ -61,9 +61,9 @@ it('can get correct values in Numeric, Reward and int', function () {
     $balance = PointBalanceManager::of($user);
     $balance2 = PointBalanceManager::of($user2);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(1000));
-    (new ChargePoints)->handle(from: $user, amount: new Reward(500));
-    (new TransferPoints)->handle(from: $user, to: $user2, amount: new Reward(450));
+    (new DepositPoints)->handle(to: $user, points: new Reward(1000));
+    (new ChargePoints)->handle(from: $user, points: new Reward(500));
+    (new TransferPoints)->handle(from: $user, to: $user2, points: new Reward(450));
 
     // Balance
     $this->assertEquals(new Numeric(50), $balance->get());
@@ -100,9 +100,9 @@ it('can get model transactions', function () {
 
     $balance = PointBalanceManager::of($user);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(1000));
-    (new ChargePoints)->handle(from: $user, amount: new Reward(500));
-    (new TransferPoints)->handle(from: $user, to: $user2, amount: new Reward(450));
+    (new DepositPoints)->handle(to: $user, points: new Reward(1000));
+    (new ChargePoints)->handle(from: $user, points: new Reward(500));
+    (new TransferPoints)->handle(from: $user, to: $user2, points: new Reward(450));
 
     $transactions = $balance->getTransactions();
 
@@ -125,7 +125,7 @@ it('can check if model has enough points to perform an operation', function () {
 
     $balance = PointBalanceManager::of($user);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(200));
+    (new DepositPoints)->handle(to: $user, points: new Reward(200));
 
     $this->assertEquals(200, $balance->getValue());
 

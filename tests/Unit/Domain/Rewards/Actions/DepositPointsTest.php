@@ -15,7 +15,7 @@ it('can deposit correct point amount for a model', function () {
 
     $balance = PointBalanceManager::of($user);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(100));
+    (new DepositPoints)->handle(to: $user, points: new Reward(100));
 
     $this->assertEquals(100, $balance->getValue());
 })->group('rewards', 'balance', 'deposit');

@@ -30,17 +30,17 @@ class LunarRewards
     /**
      * Deposit points to the model.
      */
-    public function deposit(Rewardable $model, Reward $points): Transaction
+    public function deposit(Rewardable $to, Reward $points): Transaction
     {
-        return $this->deposit->handle($model, $points);
+        return $this->deposit->handle($to, $points);
     }
 
     /**
      * Charge points from the model.
      */
-    public function charge(Rewardable $model, Reward $points): Transaction
+    public function charge(Rewardable $from, Reward $points): Transaction
     {
-        return $this->charge->handle($model, $points);
+        return $this->charge->handle($from, $points);
     }
 
     /**

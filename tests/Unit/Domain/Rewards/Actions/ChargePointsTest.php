@@ -17,10 +17,10 @@ it('can charge correct point amount for a model', function () {
 
     $balance = PointBalanceManager::of($user);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(1000));
-    (new ChargePoints)->handle(from: $user, amount: new Reward(200));
-    (new ChargePoints)->handle(from: $user, amount: new Reward(300));
-    (new ChargePoints)->handle(from: $user, amount: new Reward(50));
+    (new DepositPoints)->handle(to: $user, points: new Reward(1000));
+    (new ChargePoints)->handle(from: $user, points: new Reward(200));
+    (new ChargePoints)->handle(from: $user, points: new Reward(300));
+    (new ChargePoints)->handle(from: $user, points: new Reward(50));
 
     $this->assertEquals(450, $balance->getValue());
 })->group('rewards', 'balance', 'charge');
@@ -32,10 +32,10 @@ it('it throws an exception if there are not enough funds to charge', function ()
 
     $balance = PointBalanceManager::of($user);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(1000));
+    (new DepositPoints)->handle(to: $user, points: new Reward(1000));
 
     $this->assertThrows(
-        fn () => (new ChargePoints)->handle(from: $user, amount: new Reward(1200)),
+        fn () => (new ChargePoints)->handle(from: $user, points: new Reward(1200)),
         InsufficientFundsException::class,
     );
 
