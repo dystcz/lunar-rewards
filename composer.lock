@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8da4530a52fb4c8103d1e267de2da79",
+    "content-hash": "6c17a8a017dae78b9733e98af130b806",
     "packages": [
         {
             "name": "021/laravel-wallet",
@@ -9623,6 +9623,37 @@
             "time": "2023-02-14T19:18:31+00:00"
         },
         {
+            "name": "laravel/facade-documenter",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/facade-documenter.git",
+                "reference": "57c6f78e684351902d5b8d0166cc13e33f4d73e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/facade-documenter/zipball/57c6f78e684351902d5b8d0166cc13e33f4d73e6",
+                "reference": "57c6f78e684351902d5b8d0166cc13e33f4d73e6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^9.51|^10.0|^11.0|^12.0",
+                "phpstan/phpdoc-parser": "^1.16"
+            },
+            "default-branch": true,
+            "bin": [
+                "facade.php"
+            ],
+            "type": "library",
+            "license": [
+                "MIT"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/facade-documenter/tree/main"
+            },
+            "time": "2024-03-12T17:06:24+00:00"
+        },
+        {
             "name": "laravel/pint",
             "version": "v1.15.1",
             "source": {
@@ -13540,7 +13571,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravel/facade-documenter": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
