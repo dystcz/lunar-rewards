@@ -2,17 +2,17 @@
 
 namespace Dystcz\LunarRewards\Tests\Stubs\Users;
 
+use Dystcz\LunarRewards\Domain\Rewards\Contracts\Rewardable;
+use Dystcz\LunarRewards\Domain\Rewards\Traits\HasRewardPointsBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lunar\Base\Traits\LunarUser;
-use O21\LaravelWallet\Contracts\Payable;
-use O21\LaravelWallet\Models\Concerns\HasBalance;
 
-class User extends Authenticatable implements Payable
+class User extends Authenticatable implements Rewardable
 {
-    use HasBalance;
     use HasFactory;
+    use HasRewardPointsBalance;
     use LunarUser;
     use Notifiable;
 
