@@ -23,7 +23,7 @@ it('can create a coupon from reward points balance', function () {
 
     $balance = PointBalanceManager::of($user);
 
-    (new DepositPoints)->handle(to: $user, amount: new Reward(1000));
+    (new DepositPoints)->handle(to: $user, points: new Reward(1000));
 
     $coupon = App::make(CreateCouponFromBalance::class)->handle($user, $currency);
 
