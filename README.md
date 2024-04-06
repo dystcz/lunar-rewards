@@ -80,23 +80,122 @@ You might want to [configure the database table names](https://021-projects.gith
 
 #### Preparing your models
 
-#### Giving points to a user
+1. Implement the `Rewardable` interface in your model.
+2. Add the `HasRewardPointsBalance` trait to your model.
 
-#### Getting user's points balance
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Contracts\Rewardable;
+use Dystcz\LunarRewards\Domain\Rewards\Traits\HasRewardPointsBalance;
 
-#### Getting user's points transactions
+class Model
+class Model implements Rewardable
+{
+    use HasRewardPointsBalance;
+}
+```
 
-#### Getting user's score
+#### Depositing / Giving points to a model
 
-#### Charging points
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Actions\DepositPoints;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
+use Dystcz\LunarRewards\Facades\LunarRewards;
+
+(new DepositPoints)->handle(to: $model, points: new Reward(100));
+
+// or by calling the facade
+LunarRewards::deposit(to: $model, points: new Reward(1000));
+```
+
+#### Charging points from a model
+
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Actions\ChargePoints;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
+use Dystcz\LunarRewards\Facades\LunarRewards;
+
+(new ChargePoints)->handle(from: $model, points: new Reward(100));
+
+// or by calling the facade
+LunarRewards::charge(from: $model, points: new Reward(1000));
+```
 
 #### Transferring points
 
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Actions\TransferPoints;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
+use Dystcz\LunarRewards\Facades\LunarRewards;
+
+(new TransferPoints)->handle(from: $model, to: $model2, points: new Reward(100));
+
+// or by calling the facade
+LunarRewards::transfer(from: $model, to: $model2, points: new Reward(1000));
+```
+
+#### Getting model points balance
+
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Managers\PointBalanceManager;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
+use Dystcz\LunarRewards\Facades\LunarRewards;
+
+$balance = PointBalanceManager::of($model);
+
+// Points Balance
+$balance->getValue(); // int
+$balance->getReward(); // Reward
+
+// Get balance by calling the facade
+LunarRewards::balance($model); // int
+
+// All Sent Points
+$balance->getSent(); // int
+$balance->getSentReward(); // Reward
+
+// All Received Points
+$balance->getReceived(); // int
+$balance->getReceivedReward(); // Reward
+```
+
+#### Getting model points transactions
+
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Managers\PointBalanceManager;
+use O21\LaravelWallet\Models\Transaction;
+use Illuminate\Database\Eloquent\Builder;
+
+$balance = PointBalanceManager::of($model);
+
+// All Received Points
+$balance->getTransactions(); // Collection<Transaction>
+$balance->getTransactionsQuery(); // Builder
+
+// Or simply by calling the facade
+```
+
 #### Validating balances
 
-#### Creating coupons from points
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Managers\PointBalanceManager;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
 
-#### Discounting cart with points
+$balance = PointBalanceManager::of($model);
+
+// Check if model has enough points
+$balance->hasEnoughPoints(new Reward(1000)); // bool
+```
+
+#### Creating coupons from balance
+
+```php
+use Dystcz\LunarRewards\Domain\Rewards\Actions\CreateCouponFromBalance;
+use Lunar\Models\Currency;
+
+$currency = $order->currency; // Currency
+
+$coupon = App::make(CreateCouponFromBalance::class)->handle($model, $currency);
+```
 
 ### Lunar API endpoints
 
