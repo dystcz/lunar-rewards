@@ -2,12 +2,12 @@
 
 namespace Dystcz\LunarRewards\Domain\Discounts\Generators;
 
-use Dystcz\LunarRewards\Domain\Discounts\Contracts\CouponCodeGenerator as DiscountCodeGeneratorContract;
+use Dystcz\LunarRewards\Domain\Discounts\Contracts\CouponCodeGenerator as CouponCodeGeneratorContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Lunar\Models\Discount;
 
-class CouponCodeGenerator implements DiscountCodeGeneratorContract
+class CouponCodeGenerator implements CouponCodeGeneratorContract
 {
     public const LENGTH = 16;
 
