@@ -58,7 +58,6 @@
     "clear": "@php vendor/bin/testbench package:purge --ansi",
     "prepare": "@php vendor/bin/testbench package:discover --ansi",
     "test": "vendor/bin/pest",
-    "test-hashids": "vendor/bin/pest -c phpunit.hashids.xml",
     "test-coverage": "vendor/bin/pest --coverage",
     "analyse": "vendor/bin/phpstan analyse",
     "format": "vendor/bin/pint"

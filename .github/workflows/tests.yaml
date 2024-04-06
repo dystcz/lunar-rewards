@@ -46,6 +46,3 @@ jobs:
 
       - name: Execute tests
         run: composer test
-
-      # - name: Execute tests with hashids turned on
-      #   run: composer test-hashids
