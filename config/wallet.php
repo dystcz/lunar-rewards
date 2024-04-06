@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default_currency' => 'LRP',
+    'default_currency' => 'RP',
 
     'balance' => [
         'accounting_statuses' => [
