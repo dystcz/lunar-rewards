@@ -19,15 +19,25 @@ return [
     ],
 
     'models' => [
-        'balance' => \O21\LaravelWallet\Models\Balance::class,
-        'balance_state' => \O21\LaravelWallet\Models\BalanceState::class,
-        'transaction' => \O21\LaravelWallet\Models\Transaction::class,
+        'balance' => \Dystcz\LunarRewards\Domain\Rewards\Models\Balance::class,
+        'balance_state' => \Dystcz\LunarRewards\Domain\Rewards\Models\BalanceState::class,
+        'transaction' => \Dystcz\LunarRewards\Domain\Rewards\Models\Transaction::class,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Table Names
+    |--------------------------------------------------------------------------
+    |
+    | Specify the table names to use for the rewards system.
+    | Note that the table names are prefixed with the default Lunar table prefix.
+    | Eg. 'balances' will be 'lunar_balances' or wharever your table prefix is.
+    |
+    */
     'table_names' => [
-        'balances' => 'lunar_rewards_balances',
-        'balance_states' => 'lunar_rewards_balance_states',
-        'transactions' => 'lunar_rewards_transactions',
+        'balances' => 'wallet_balances',
+        'balance_states' => 'wallet_balance_states',
+        'transactions' => 'wallet_transactions',
     ],
 
     'processors' => [
