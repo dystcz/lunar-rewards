@@ -165,7 +165,7 @@ use Dystcz\LunarRewards\Domain\Rewards\Managers\PointBalanceManager;
 $balance = PointBalanceManager::of($model);
 
 // All Received Points
-$balance->getTransactions(); // Illuminate\Support\Collection<O21\LaravelWallet\Models\Transaction>
+$balance->getTransactions(); // Illuminate\Support\Collection<\Dystcz\LunarRewards\Domain\Rewards\Models\Transaction>
 $balance->getTransactionsQuery(); // Illuminate\Database\Eloquent\Builder
 
 // Or simply by calling the facade
