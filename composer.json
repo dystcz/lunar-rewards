@@ -1,7 +1,7 @@
 {
   "name": "dystcz/lunar-rewards",
   "description": "Reward system for Laravel applications using Lunar",
-  "version": "0.8.0",
+  "version": "1.0.0-alpha",
   "keywords": [
     "dystcz",
     "lunar",
@@ -23,22 +23,19 @@
   ],
   "require": {
     "php": "^8.2",
-    "illuminate/support": "^10.0",
-    "lunarphp/lunar": "^0.8"
+    "illuminate/support": "^11.0",
+    "lunarphp/lunar": "^1.0.0-alpha"
   },
   "suggest": {
     "dystcz/lunar-api": "For working with Lunar API"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "^2.13",
-    "laravel-json-api/testing": "^2.1",
+    "laravel-json-api/testing": "^3.0",
     "laravel/pint": "^1.7",
-    "dystcz/lunar-api": "^0.8",
-    "orchestra/testbench": "^8.0",
+    "dystcz/lunar-api": "^1.0.0-alpha",
+    "orchestra/testbench": "^9.0",
     "pestphp/pest": "^2.0",
     "pestphp/pest-plugin-laravel": "^2.0",
-    "rector/rector": "^0.15.23",
-    "driftingly/rector-laravel": "^0.17.0",
     "spatie/laravel-ray": "^1.32"
   },
   "autoload": {
