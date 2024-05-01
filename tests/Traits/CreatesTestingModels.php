@@ -55,7 +55,7 @@ trait CreatesTestingModels
 
         $price = Price::factory()->create([
             'price' => 2000,
-            'tier' => 1,
+            'min_quantity' => 1,
             'currency_id' => $currency->id,
             'priceable_type' => get_class($purchasable),
             'priceable_id' => $purchasable->id,
@@ -124,7 +124,7 @@ trait CreatesTestingModels
 
         $price = Price::factory()->create([
             'price' => 1000,
-            'tier' => 1,
+            'min_quantity' => 1,
             'currency_id' => $currency->id,
             'priceable_type' => get_class($purchasable),
             'priceable_id' => $purchasable->id,

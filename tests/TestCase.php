@@ -72,11 +72,11 @@ abstract class TestCase extends Orchestra
             \Dystcz\LunarApi\JsonApiServiceProvider::class,
 
             // Livewire
-            \Lunar\LivewireTables\LivewireTablesServiceProvider::class,
             \Livewire\LivewireServiceProvider::class,
 
-            // Lunar Hub
-            \Lunar\Hub\AdminHubServiceProvider::class,
+            // Lunar Admin
+            // \Lunar\LunarServiceProvider::class,
+            // \Lunar\Admin\LunarPanelProvider::class,
 
             // Lunar Rewards
             \Dystcz\LunarRewards\LunarRewardsServiceProvider::class,
