@@ -3,6 +3,7 @@
 namespace Dystcz\LunarRewards\Tests\Traits;
 
 use Dystcz\LunarApi\Domain\Carts\Models\Cart;
+use Dystcz\LunarRewards\Tests\Stubs\Users\User;
 use Illuminate\Database\Eloquent\Model;
 use Lunar\DataTypes\Price as PriceDataType;
 use Lunar\DataTypes\ShippingOption;
@@ -19,6 +20,14 @@ use Lunar\Models\TaxRateAmount;
 
 trait CreatesTestingModels
 {
+    /**
+     * @param  array<string,Model>  $models
+     */
+    public function createUser(...$models): User
+    {
+        return User::factory()->create();
+    }
+
     /**
      * @param  array<string,Model>  $models
      */

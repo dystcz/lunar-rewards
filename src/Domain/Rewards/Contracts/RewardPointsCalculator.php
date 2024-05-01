@@ -2,6 +2,7 @@
 
 namespace Dystcz\LunarRewards\Domain\Rewards\Contracts;
 
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
 use Lunar\Models\Cart;
 use Lunar\Models\Order;
 
@@ -15,5 +16,5 @@ interface RewardPointsCalculator
     /**
      * Calculate the reward points for the given order.
      */
-    public function calculate(): int;
+    public function calculate(): Reward;
 }

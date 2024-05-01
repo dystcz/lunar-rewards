@@ -8,7 +8,7 @@ use Lunar\Models\Currency;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-it('can calculate points from order correctly', function () {
+it('can calculate points from order', function () {
 
     /** @var TestCase $this */
     $currency = Currency::factory()->create([
@@ -21,11 +21,11 @@ it('can calculate points from order correctly', function () {
         currency: $currency,
     );
 
-    $points = RewardPointsCalculator::for($order)
-        ->setCoefficient(2)
+    $reward = RewardPointsCalculator::for($order)
+        ->setRewardCoefficient(2)
         ->calculate();
 
-    $this->assertEquals(20, $points);
+    $this->assertEquals(20, $reward->value);
 
 })->group('rewards', 'point-calculator');
 
@@ -42,11 +42,11 @@ it('can calculate points from order while respecting currency exchange rate', fu
         currency: $currency,
     );
 
-    $points = RewardPointsCalculator::for($order)
-        ->setCoefficient(10)
+    $reward = RewardPointsCalculator::for($order)
+        ->setRewardCoefficient(10)
         ->calculate();
 
-    $this->assertEquals(150, $points);
+    $this->assertEquals(150, $reward->value);
 
 })->group('rewards', 'point-calculator');
 
@@ -65,10 +65,10 @@ it('can calculate points from order respecting configured', function () {
         currency: $currency,
     );
 
-    $points = RewardPointsCalculator::for($order)
+    $reward = RewardPointsCalculator::for($order)
         ->calculate();
 
-    $this->assertEquals(100, $points);
+    $this->assertEquals(100, $reward->value);
 
 })->group('rewards', 'point-calculator');
 
@@ -85,10 +85,10 @@ it('can calculate points from cart correctly', function () {
         currency: $currency,
     );
 
-    $points = RewardPointsCalculator::for($cart)
-        ->setCoefficient(3)
+    $reward = RewardPointsCalculator::for($cart)
+        ->setRewardCoefficient(3)
         ->calculate();
 
-    $this->assertEquals(60, $points);
+    $this->assertEquals(60, $reward->value);
 
 })->group('rewards', 'point-calculator');

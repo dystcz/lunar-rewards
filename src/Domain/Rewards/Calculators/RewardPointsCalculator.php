@@ -3,13 +3,14 @@
 namespace Dystcz\LunarRewards\Domain\Rewards\Calculators;
 
 use Dystcz\LunarRewards\Domain\Rewards\Contracts\RewardPointsCalculator as RewardPointsCalculatorContract;
+use Dystcz\LunarRewards\Domain\Rewards\DataTypes\Reward;
 use Illuminate\Support\Facades\Config;
 use Lunar\Models\Cart;
 use Lunar\Models\Order;
 
 class RewardPointsCalculator implements RewardPointsCalculatorContract
 {
-    protected int|float $coefficient;
+    protected float $rewardCoefficient;
 
     protected Order|Cart $model;
 
@@ -20,13 +21,13 @@ class RewardPointsCalculator implements RewardPointsCalculatorContract
     {
         $this->model = $model;
 
-        $this->setCoefficient(Config::get('lunar-rewards.reward_point_coefficient', 1));
+        $this->setRewardCoefficient(Config::get('lunar-rewards.rewards.reward_coefficient', 1));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function calculate(): int
+    public function calculate(): Reward
     {
         if (! $this->getModel()) {
             throw new \Exception('No model set for calculating reward points.');
@@ -36,11 +37,11 @@ class RewardPointsCalculator implements RewardPointsCalculatorContract
         $exchangeRate = $currency->exchange_rate;
         $subTotal = $this->getModel()->sub_total ?? $this->getModel()->subTotal ?? null;
         $subTotalValue = $subTotal ? $subTotal->value : 0;
-        $coefficient = $this->getCoefficient();
+        $rewardCoefficient = $this->getRewardCoefficient();
 
-        $points = (int) round($subTotalValue * $exchangeRate * $coefficient / 100);
+        $points = (int) round($subTotalValue * $exchangeRate * $rewardCoefficient / 100);
 
-        return $points;
+        return new Reward($points);
     }
 
     /**
@@ -62,9 +63,9 @@ class RewardPointsCalculator implements RewardPointsCalculatorContract
     /**
      * Set the coefficient for calculating reward points.
      */
-    public function setCoefficient(int|float $coefficient): self
+    public function setRewardCoefficient(int|float $rewardCoefficient): self
     {
-        $this->coefficient = (float) $coefficient;
+        $this->rewardCoefficient = (float) $rewardCoefficient;
 
         return $this;
     }
@@ -72,8 +73,8 @@ class RewardPointsCalculator implements RewardPointsCalculatorContract
     /**
      * Get the coefficient used for calculating reward points.
      */
-    public function getCoefficient(): float
+    public function getRewardCoefficient(): float
     {
-        return $this->coefficient;
+        return $this->rewardCoefficient;
     }
 }

@@ -4,8 +4,124 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "721071caf4082d4d694da455432f4771",
+    "content-hash": "6c17a8a017dae78b9733e98af130b806",
     "packages": [
+        {
+            "name": "021/laravel-wallet",
+            "version": "v8.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/021-projects/laravel-wallet.git",
+                "reference": "c66401a1682fce12a2ca0577eead7d7562b73585"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/021-projects/laravel-wallet/zipball/c66401a1682fce12a2ca0577eead7d7562b73585",
+                "reference": "c66401a1682fce12a2ca0577eead7d7562b73585",
+                "shasum": ""
+            },
+            "require": {
+                "021/safely-transaction": "^1.0.1",
+                "ext-bcmath": "*",
+                "laravel/framework": "^10.0|^11.0",
+                "php": "^8.1|^8.2|^8.3"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.0",
+                "laravel/pint": "^1.13",
+                "orchestra/testbench": "^8.21|^9.0",
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "O21\\LaravelWallet\\ServiceProvider"
+                    ],
+                    "dont-discover": []
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "O21\\LaravelWallet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "021",
+                    "email": "devsellio@gmail.com",
+                    "homepage": "https://021-projects.github.io/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Reliable and flexible wallet system for Laravel",
+            "keywords": [
+                "balance",
+                "deposit",
+                "finance",
+                "laravel",
+                "payment",
+                "payout",
+                "transactions",
+                "transfer",
+                "wallet",
+                "withdrawal"
+            ],
+            "support": {
+                "issues": "https://github.com/021-projects/laravel-wallet/issues",
+                "source": "https://github.com/021-projects/laravel-wallet/tree/v8.2.6"
+            },
+            "time": "2024-03-17T08:41:53+00:00"
+        },
+        {
+            "name": "021/safely-transaction",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/021-projects/laravel-safely-transaction.git",
+                "reference": "3036089425805bc29f6da9b88dc16896ff67c400"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/021-projects/laravel-safely-transaction/zipball/3036089425805bc29f6da9b88dc16896ff67c400",
+                "reference": "3036089425805bc29f6da9b88dc16896ff67c400",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0|^8.0|^9.0|^10.0|^11.0",
+                "php": "^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "O21\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Helper class for locking record in database",
+            "keywords": [
+                "framework",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/021-projects/laravel-safely-transaction/issues",
+                "source": "https://github.com/021-projects/laravel-safely-transaction/tree/v1.0.3"
+            },
+            "time": "2024-02-22T19:29:46+00:00"
+        },
         {
             "name": "barryvdh/laravel-dompdf",
             "version": "v2.1.1",
@@ -9507,6 +9623,37 @@
             "time": "2023-02-14T19:18:31+00:00"
         },
         {
+            "name": "laravel/facade-documenter",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/facade-documenter.git",
+                "reference": "57c6f78e684351902d5b8d0166cc13e33f4d73e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/facade-documenter/zipball/57c6f78e684351902d5b8d0166cc13e33f4d73e6",
+                "reference": "57c6f78e684351902d5b8d0166cc13e33f4d73e6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^9.51|^10.0|^11.0|^12.0",
+                "phpstan/phpdoc-parser": "^1.16"
+            },
+            "default-branch": true,
+            "bin": [
+                "facade.php"
+            ],
+            "type": "library",
+            "license": [
+                "MIT"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/facade-documenter/tree/main"
+            },
+            "time": "2024-03-12T17:06:24+00:00"
+        },
+        {
             "name": "laravel/pint",
             "version": "v1.15.1",
             "source": {
@@ -13424,7 +13571,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravel/facade-documenter": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

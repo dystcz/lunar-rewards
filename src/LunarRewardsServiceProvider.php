@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Models\Currency;
 
 class LunarRewardsServiceProvider extends ServiceProvider
 {
@@ -37,13 +38,36 @@ class LunarRewardsServiceProvider extends ServiceProvider
             fn () => new LunarRewards,
         );
 
+        // Register the reward points currency.
+        $this->app->singleton(
+            'lunar-rewards-currency',
+            fn () => new Currency([
+                'code' => Config::get('wallet.default_currency', 'RP'),
+                'name' => 'Reward Points',
+                'exchange_rate' => 1,
+                'decimal_places' => 0,
+                'enabled' => true,
+            ]),
+        );
+
+        // Register the reward points calculator.
         $this->app->singleton(
             \Dystcz\LunarRewards\Domain\Rewards\Contracts\RewardPointsCalculator::class,
             fn () => new (Config::get(
-                'lunar-rewards.reward_point_calculator',
+                'lunar-rewards.rewards.reward_point_calculator',
                 \Dystcz\LunarRewards\Domain\Rewards\Calculators\RewardPointsCalculator::class,
             )),
         );
+
+        // Register coupon code generator.
+        $this->app->singleton(
+            \Dystcz\LunarRewards\Domain\Discounts\Contracts\CouponCodeGenerator::class,
+            fn () => new (Config::get(
+                'lunar-rewards.rewards.coupon_code_generator',
+                \Dystcz\LunarRewards\Domain\Discounts\Generators\CouponCodeGenerator::class,
+            )),
+        );
+
     }
 
     /**
@@ -74,8 +98,12 @@ class LunarRewardsServiceProvider extends ServiceProvider
         foreach ($this->configFiles as $configFile) {
             $this->publishes([
                 "{$this->root}/config/{$configFile}.php" => config_path("lunar-rewards/{$configFile}.php"),
-            ], 'lunar-rewards');
+            ], 'lunar-rewards.config');
         }
+
+        $this->publishes([
+            "{$this->root}/config/wallet.php" => config_path('wallet.php'),
+        ], 'lunar-rewards.config');
     }
 
     /**
@@ -99,6 +127,11 @@ class LunarRewardsServiceProvider extends ServiceProvider
                 "lunar-rewards.{$configFile}",
             );
         }
+
+        $this->mergeConfigFrom(
+            "{$this->root}/config/wallet.php",
+            'wallet',
+        );
     }
 
     /**
